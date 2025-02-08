@@ -12,12 +12,17 @@ dotenv.config();
 const app = express();
 
 // ✅ CORS Middleware (MUST be before other middlewares)
+const cors = require("cors");
+
 app.use(
   cors({
-    origin: "https://auth-1-emun.onrender.com", // ✅ Change to match your frontend URL
-    credentials: true, // ✅ Allows sending cookies with requests
+    origin: "https://auth-1-emun.onrender.com", // ✅ Your frontend URL
+    credentials: true, // ✅ Allows cookies (important for authentication)
+    methods: ["GET", "POST", "PUT", "DELETE"], // ✅ Specify allowed methods (optional)
+    allowedHeaders: ["Content-Type", "Authorization"], // ✅ Specify allowed headers (optional)
   })
 );
+
 
 // ✅ Middleware (After CORS)
 app.use(express.json()); // Parses JSON requests
