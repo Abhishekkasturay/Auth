@@ -51,11 +51,12 @@ exports.loginHandle = async (req, res) => {
     });
 
     // ✅ Send JWT as a HttpOnly Cookie for security
-    res.cookie("token", token, {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === "production",
-      sameSite: "Strict",
-    });
+  res.cookie("token", token, {
+  httpOnly: true,      // ✅ Prevents access via JavaScript
+  secure: true,        // ✅ Required for HTTPS on Render
+  sameSite: "None",    // ✅ REQUIRED for cross-origin cookies (since frontend & backend have different origins)
+});
+
 
     res.json({
       msg: "Login successful",
