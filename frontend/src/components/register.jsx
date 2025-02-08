@@ -28,6 +28,8 @@ const API_BASE_URL =
       return;
     }
 
+      console.log("📌 Register button clicked! Sending request...");
+
     try {
       const response = await axios.post(
         `${API_BASE_URL}/api/auth/register`, // Ensure this matches your backend route
