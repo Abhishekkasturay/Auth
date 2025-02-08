@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import secureIcon from "../assets/secure-icon.png"; // ✅ Import image
 import axios from "axios";
+import { API_BASE_URL } from "../config";
 
 
 const Register = () => {
@@ -13,8 +14,6 @@ const Register = () => {
   });
   const [message, setMessage] = useState("");
   const navigate = useNavigate();
-const API_BASE_URL =
-  process.env.REACT_APP_API_URL;
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
