@@ -20,7 +20,7 @@ function Login() {
 
     try {
       const response = await axios.post(
-        `${API_BASE_URL}/api/auth/login`,
+        "https://auth-sorq.onrender.com/api/auth/login",
         { email, password },
         {
           headers: { "Content-Type": "application/json" },
