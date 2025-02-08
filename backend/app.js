@@ -14,7 +14,7 @@ const app = express();
 // ✅ CORS Middleware (MUST be before other middlewares)
 app.use(
   cors({
-    origin: "http://localhost:5174", // ✅ Change to match your frontend URL
+    origin: process.env.FRONTEND_URL, // ✅ Change to match your frontend URL
     credentials: true, // ✅ Allows sending cookies with requests
   })
 );
