@@ -9,16 +9,35 @@ function Dashboard() {
   const [user, setUser] = useState({ name: "", email: "" });
   console.log(user);
 
-  useEffect(() => {
-    axios
-      .get("https://auth-sorq.onrender.com/api/auth/profile", { withCredentials: true })
-      .then((response) => {
-        setUser(response.data);
-      })
-      .catch((error) => {
-        console.error("Error fetching user data:", error);
+useEffect(() => {
+  const fetchUserProfile = async () => {
+    try {
+      // Manually retrieve token from cookies
+      const token = document.cookie
+        .split("; ")
+        .find((row) => row.startsWith("token="))
+        ?.split("=")[1];
+
+      // If token is missing, stop the request
+      if (!token) {
+        console.error("No token found in cookies.");
+        return;
+      }
+
+      // Send token in Authorization header
+      const response = await axios.get("https://auth-sorq.onrender.com/api/auth/profile", {
+        headers: { Authorization: `Bearer ${token}` },
+        withCredentials: true,
       });
-  }, []);
+
+      setUser(response.data);
+    } catch (error) {
+      console.error("Error fetching user data:", error);
+    }
+  };
+
+  fetchUserProfile();
+}, []);
   return (
     <Layout>
       <Container className="vh-100 d-flex align-items-center justify-content-center">
