@@ -7,31 +7,33 @@ function Profile() {
   const [user, setUser] = useState({ name: "", email: "" });
   console.log(user);
 
- useEffect(() => {
-    // ✅ Extract token from cookies
-    const token = document.cookie
-      .split("; ")
-      .find((row) => row.startsWith("token="))
-      ?.split("=")[1];
+useEffect(() => {
+  const token = document.cookie
+    .split("; ")
+    .find((row) => row.startsWith("token="))
+    ?.split("=")[1];
 
-    if (!token) {
-      setError("No token found. Please login again.");
-      return;
-    }
+  console.log("📌 Extracted Token from Cookies:", token); // ✅ Debugging Log
 
-    axios
-      .get("https://auth-sorq.onrender.com/api/auth/profile", {
-        headers: { Authorization: `Bearer ${token}` },
-        withCredentials: true, // ✅ Ensures cookies are sent
-      })
-      .then((response) => {
-        setUser(response.data);
-      })
-      .catch((error) => {
-        console.error("❌ Error fetching user data:", error);
-        setError("Unauthorized. Please login again.");
-      });
-  }, []);
+  if (!token) {
+    console.error("❌ No token found. User is not authenticated.");
+    return;
+  }
+
+  axios
+    .get("https://auth-sorq.onrender.com/api/auth/profile", {
+      headers: { Authorization: `Bearer ${token}` },
+      withCredentials: true, // ✅ Ensures cookies are sent
+    })
+    .then((response) => {
+      console.log("✅ Profile Data:", response.data); // ✅ Debugging Log
+      setUser(response.data);
+    })
+    .catch((error) => {
+      console.error("❌ Error fetching user data:", error);
+    });
+}, []);
+
 
   return (
     <Layout>
