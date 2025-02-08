@@ -4,18 +4,22 @@ require("dotenv").config();
 module.exports = function (req, res, next) {
   let token;
 
-  // Check for JWT in cookies (for normal authentication)
-  if (req.cookies.token) {
+  // ✅ Debugging Logs (Check if token is received)
+  console.log("🔍 Incoming Headers:", req.headers);
+  console.log("🔍 Incoming Cookies:", req.cookies);
+
+  // Check for JWT in cookies (preferred method for authentication)
+  if (req.cookies?.token) {
     token = req.cookies.token;
   }
 
   // Check for JWT in request body (for password reset)
-  if (req.body.token) {
+  else if (req.body?.token) {
     token = req.body.token;
   }
 
   // Check for JWT in query parameters (for reset links)
-  if (req.query.token) {
+  else if (req.query?.token) {
     token = req.query.token;
   }
 
@@ -25,11 +29,13 @@ module.exports = function (req, res, next) {
   }
 
   try {
-    // Verify token
+    // ✅ Verify token and attach user to request object
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
     req.user = decoded;
+    console.log("✅ User Decoded from JWT:", decoded);
     next();
   } catch (err) {
-    res.status(401).json({ msg: "Token is not valid" });
+    console.error("❌ JWT Verification Failed:", err.message);
+    return res.status(401).json({ msg: "Token is not valid" });
   }
 };
