@@ -2,37 +2,22 @@ const jwt = require("jsonwebtoken");
 require("dotenv").config();
 
 module.exports = function (req, res, next) {
-  let token;
+  console.log("📌 Incoming Headers:", req.headers);
+  console.log("📌 Incoming Cookies:", req.cookies);
 
-  // ✅ Debugging Logs (Check if token is received)
-  console.log("🔍 Incoming Headers:", req.headers);
-  console.log("🔍 Incoming Cookies:", req.cookies);
+  // ✅ Extract token from Cookies or Authorization Header
+  let token = req.cookies?.token || req.headers.authorization?.split(" ")[1];
 
-  // Check for JWT in cookies (preferred method for authentication)
-  if (req.cookies?.token) {
-    token = req.cookies.token;
-  }
-
-  // Check for JWT in request body (for password reset)
-  else if (req.body?.token) {
-    token = req.body.token;
-  }
-
-  // Check for JWT in query parameters (for reset links)
-  else if (req.query?.token) {
-    token = req.query.token;
-  }
-
-  // If no token found, deny access
   if (!token) {
+    console.error("❌ No token found, authorization denied.");
     return res.status(401).json({ msg: "No token, authorization denied" });
   }
 
   try {
-    // ✅ Verify token and attach user to request object
+    // ✅ Verify JWT and attach user to request object
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    console.log("✅ Token Decoded Successfully:", decoded);
     req.user = decoded;
-    console.log("✅ User Decoded from JWT:", decoded);
     next();
   } catch (err) {
     console.error("❌ JWT Verification Failed:", err.message);
