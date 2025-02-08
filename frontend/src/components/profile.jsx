@@ -10,7 +10,7 @@ function Profile() {
 
   useEffect(() => {
     axios
-      .get(`${API_BASE_URL}/api/auth/profile`, { withCredentials: true })
+      .get("https://auth-sorq.onrender.com/api/auth/profile", { withCredentials: true })
       .then((response) => {
         setUser(response.data);
       })
