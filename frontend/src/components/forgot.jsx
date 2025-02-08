@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { Form, Button, Card, Container } from "react-bootstrap";
 import emailjs from "emailjs-com"; // ✅ Import EmailJS
-import { FRONTEND_URL } from "../config";
 
 function ForgotPassword() {
   const [email, setEmail] = useState("");
@@ -13,7 +12,7 @@ function ForgotPassword() {
 
     const templateParams = {
       to_email: email, // ✅ Ensure this matches your EmailJS template
-      reset_link: `${FRONTEND_URL}/auth/reset?email=${email}`,
+      reset_link: "https://auth-1-emun.onrender.com/auth/reset?email=${email}",
     };
 
     emailjs
