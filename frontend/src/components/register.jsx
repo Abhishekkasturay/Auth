@@ -37,6 +37,8 @@ const API_BASE_URL =
         { headers: { "Content-Type": "application/json" } }
       );
 
+console.log("✅ API Response:", response);
+      
       if (response.status === 201) {
         navigate("/auth/login");
       } else {
