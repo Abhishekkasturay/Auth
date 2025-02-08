@@ -2,9 +2,7 @@ import React, { useState } from "react";
 import { Form, Button, Card, Container } from "react-bootstrap";
 import axios from "axios";
 import { useSearchParams } from "react-router-dom"; // ✅ Extract token from URL
-import { API_BASE_URL } from "../config";
-const FRONTEND_URL =
-  process.env.REACT_APP_FRONTEND_URL || "http://localhost:5174";
+
 
 function ResetPassword() {
   const [password, setPassword] = useState("");
@@ -24,7 +22,7 @@ function ResetPassword() {
 
     try {
       const response = await axios.post(
-        `${API_BASE_URL}/api/auth/reset`,
+        "https://auth-sorq.onrender.com/api/auth/reset",
         { password },
         {
           headers: {
