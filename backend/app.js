@@ -41,6 +41,13 @@ const connectDB = async () => {
 // Call MongoDB Connection
 connectDB();
 
+
+app.use((req, res, next) => {
+  console.log(`📡 API Request: ${req.method} ${req.url}`);
+  next();
+});
+
+
 // Import authentication routes
 const authRoutes = require("./routes/auth");
 
