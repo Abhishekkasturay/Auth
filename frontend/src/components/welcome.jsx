@@ -10,7 +10,7 @@ function Welcome() {
           <div className="card card-body text-center bg-dark text-white">
             <h1>Welcome</h1>
             <img
-              src="/src/assets/secure-icon.png"
+              src="/public/secure-icon.png"
               alt="icon"
               className="img-fluid mx-auto d-block"
               style={{ width: "60%" }}
