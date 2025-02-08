@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import Layout from "./layout";
 import { Container, Button } from "react-bootstrap";
 import axios from "axios";
-import { API_BASE_URL } from "../config";
 
 function Profile() {
   const [user, setUser] = useState({ name: "", email: "" });
