@@ -8,22 +8,9 @@ function Profile() {
   console.log(user);
 
 useEffect(() => {
-  const token = document.cookie
-    .split("; ")
-    .find((row) => row.startsWith("token="))
-    ?.split("=")[1];
-
-  console.log("📌 Extracted Token from Cookies:", token); // ✅ Debugging Log
-
-  if (!token) {
-    console.error("❌ No token found. User is not authenticated.");
-    return;
-  }
-
   axios
     .get("https://auth-sorq.onrender.com/api/auth/profile", {
-      headers: { Authorization: `Bearer ${token}` },
-      withCredentials: true, // ✅ Ensures cookies are sent
+      withCredentials: true, // ✅ Ensures cookies are sent automatically
     })
     .then((response) => {
       console.log("✅ Profile Data:", response.data); // ✅ Debugging Log
@@ -33,6 +20,7 @@ useEffect(() => {
       console.error("❌ Error fetching user data:", error);
     });
 }, []);
+
 
 
   return (
