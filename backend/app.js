@@ -13,14 +13,11 @@ const app = express();
 // ✅ CORS Middleware (MUST be before other middlewares)
 const cors = require("cors");
 
-app.use(
-  cors({
-    origin: "https://auth-1-emun.onrender.com", // ✅ Your frontend URL
-    credentials: true, // ✅ Allows cookies (important for authentication)
-    methods: ["GET", "POST", "PUT", "DELETE"], // ✅ Specify allowed methods (optional)
-    allowedHeaders: ["Content-Type", "Authorization"], // ✅ Specify allowed headers (optional)
-  })
-);
+app.use(cors({
+  origin: 'https://auth-1-emun.onrender.com', // Frontend URL
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  credentials: true
+}));
 
 
 // ✅ Middleware (After CORS)
