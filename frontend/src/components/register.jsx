@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import secureIcon from "../assets/secure-icon.png"; // ✅ Import image
 import axios from "axios";
-import { API_BASE_URL } from "../config";
 
 
 const Register = () => {
@@ -31,7 +30,7 @@ const Register = () => {
 
     try {
       const response = await axios.post(
-        `${API_BASE_URL}/api/auth/register`, // Ensure this matches your backend route
+        "https://auth-sorq.onrender.com/api/auth/register", // Ensure this matches your backend route
         formData,
         { headers: { "Content-Type": "application/json" } }
       );
