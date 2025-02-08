@@ -3,7 +3,6 @@ import { useNavigate, Link } from "react-router-dom";
 import secureIcon from "../assets/secure-icon.png"; // ✅ Import image
 import axios from "axios";
 
-
 const Register = () => {
   const [formData, setFormData] = useState({
     name: "",
@@ -13,6 +12,7 @@ const Register = () => {
   });
   const [message, setMessage] = useState("");
   const navigate = useNavigate();
+
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
@@ -26,17 +26,17 @@ const Register = () => {
       return;
     }
 
-      console.log("📌 Register button clicked! Sending request...");
+    console.log("📌 Register button clicked! Sending request...");
 
     try {
       const response = await axios.post(
-        "https://auth-sorq.onrender.com/api/auth/register", // Ensure this matches your backend route
+        "https://auth-sorq.onrender.com/api/auth/register",
         formData,
         { headers: { "Content-Type": "application/json" } }
       );
 
-console.log("✅ API Response:", response);
-      
+      console.log("✅ API Response:", response);
+
       if (response.status === 201) {
         navigate("/auth/login");
       } else {
@@ -50,17 +50,17 @@ console.log("✅ API Response:", response);
   };
 
   return (
-    <div className="container d-flex justify-content-center align-items-center vh-100">
-      <div className="row">
-        <div className="col-md-6">
-          <div className="card card-body text-center">
-            <h1 className="mb-3">
-              <img src={secureIcon} alt="icon" width="40%" />
-            </h1>
-            <h2>Register New User</h2>
+    <div className="container vh-100 d-flex align-items-center justify-content-center">
+      <div className="row w-100 justify-content-center">
+        <div className="col-md-6 col-lg-5">
+          <div className="card shadow p-4">
+            <div className="text-center">
+              <img src={secureIcon} alt="icon" width="100" className="mb-3" />
+              <h2>Register New User</h2>
+            </div>
             {message && <div className="alert alert-danger">{message}</div>}
             <form onSubmit={handleSubmit}>
-              <div className="form-group">
+              <div className="form-group mb-3">
                 <label htmlFor="name">Name</label>
                 <input
                   type="text"
@@ -70,9 +70,10 @@ console.log("✅ API Response:", response);
                   placeholder="Enter Name"
                   value={formData.name}
                   onChange={handleChange}
+                  required
                 />
               </div>
-              <div className="form-group">
+              <div className="form-group mb-3">
                 <label htmlFor="email">Email</label>
                 <input
                   type="email"
@@ -82,9 +83,10 @@ console.log("✅ API Response:", response);
                   placeholder="Enter Email"
                   value={formData.email}
                   onChange={handleChange}
+                  required
                 />
               </div>
-              <div className="form-group">
+              <div className="form-group mb-3">
                 <label htmlFor="password">Password</label>
                 <input
                   type="password"
@@ -94,9 +96,10 @@ console.log("✅ API Response:", response);
                   placeholder="Enter Password"
                   value={formData.password}
                   onChange={handleChange}
+                  required
                 />
               </div>
-              <div className="form-group">
+              <div className="form-group mb-3">
                 <label htmlFor="password2">Confirm Password</label>
                 <input
                   type="password"
@@ -106,13 +109,14 @@ console.log("✅ API Response:", response);
                   placeholder="Confirm Password"
                   value={formData.password2}
                   onChange={handleChange}
+                  required
                 />
               </div>
-              <button type="submit" className="btn btn-primary btn-block">
+              <button type="submit" className="btn btn-primary w-100">
                 Register
               </button>
             </form>
-            <p className="mt-4">
+            <p className="mt-3 text-center">
               Already have an account? <Link to="/auth/login">Login</Link>
             </p>
           </div>
