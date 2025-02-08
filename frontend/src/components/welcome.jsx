@@ -1,6 +1,7 @@
 import React from "react";
 import Layout from "./layout";
 import { Link } from "react-router-dom";
+import secureIcon from "../assets/secure-icon.png";
 
 function Welcome() {
   return (
@@ -10,7 +11,7 @@ function Welcome() {
           <div className="card card-body text-center bg-dark text-white">
             <h1>Welcome</h1>
             <img
-              src="/public/secure-icon.png"
+              src={secureIcon}
               alt="icon"
               className="img-fluid mx-auto d-block"
               style={{ width: "60%" }}
