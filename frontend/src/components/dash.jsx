@@ -8,36 +8,20 @@ import secureIcon from "../assets/secure-icon.png"; // ✅ Ensure correct image 
 function Dashboard() {
   const [user, setUser] = useState({ name: "", email: "" });
   console.log(user);
-
 useEffect(() => {
-  const fetchUserProfile = async () => {
-    try {
-      // Manually retrieve token from cookies
-      const token = document.cookie
-        .split("; ")
-        .find((row) => row.startsWith("token="))
-        ?.split("=")[1];
-
-      // If token is missing, stop the request
-      if (!token) {
-        console.error("No token found in cookies.");
-        return;
-      }
-
-      // Send token in Authorization header
-      const response = await axios.get("https://auth-sorq.onrender.com/api/auth/profile", {
-        headers: { Authorization: `Bearer ${token}` },
-        withCredentials: true,
-      });
-
+  axios
+    .get("https://auth-sorq.onrender.com/api/auth/profile", {
+      withCredentials: true, // ✅ Ensures HttpOnly cookies are sent automatically
+    })
+    .then((response) => {
       setUser(response.data);
-    } catch (error) {
-      console.error("Error fetching user data:", error);
-    }
-  };
-
-  fetchUserProfile();
+    })
+    .catch((error) => {
+      console.error("❌ Error fetching user data:", error);
+    });
 }, []);
+
+
   return (
     <Layout>
       <Container className="vh-100 d-flex align-items-center justify-content-center">
