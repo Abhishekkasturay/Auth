@@ -4,7 +4,6 @@ import { Link } from "react-router-dom";
 import Layout from "./layout";
 import axios from "axios";
 import secureIcon from "../assets/secure-icon.png"; // ✅ Ensure correct image path
-import { API_BASE_URL } from "../config";
 
 function Dashboard() {
   const [user, setUser] = useState({ name: "", email: "" });
@@ -12,7 +11,7 @@ function Dashboard() {
 
   useEffect(() => {
     axios
-      .get(`${API_BASE_URL}/api/auth/profile`, { withCredentials: true })
+      .get("https://auth-sorq.onrender.com/api/auth/profile", { withCredentials: true })
       .then((response) => {
         setUser(response.data);
       })
