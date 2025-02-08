@@ -13,14 +13,13 @@ useEffect(() => {
       withCredentials: true, // ✅ Ensures cookies are sent automatically
     })
     .then((response) => {
-      console.log("✅ Profile Data:", response.data); // ✅ Debugging Log
+      console.log("✅ Profile Data:", response.data);
       setUser(response.data);
     })
     .catch((error) => {
       console.error("❌ Error fetching user data:", error);
     });
 }, []);
-
 
 
   return (
