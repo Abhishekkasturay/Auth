@@ -14,17 +14,22 @@ const app = express();
 const cors = require("cors");
 
 app.use(cors({
-  origin: 'https://auth-1-emun.onrender.com', // Frontend URL
-  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  origin: "https://auth-1-emun.onrender.com", // ✅ Frontend URL
+  credentials: true, // ✅ Allows cookies to be sent
+  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
   allowedHeaders: ["Content-Type", "Authorization"],
-  credentials: true
 }));
-
 
 // ✅ Middleware (After CORS)
 app.use(express.json()); // Parses JSON requests
-app.use(cookieParser()); // Handles cookies
+app.use(cookieParser()); // ✅ Handles cookies
 app.use(morgan("dev")); // Logs API requests
+
+// 🔍 Debugging Middleware (Logs Incoming Cookies)
+app.use((req, res, next) => {
+  console.log("📌 Incoming Cookies:", req.cookies); // ✅ Log received cookies
+  next();
+});
 
 // ✅ Connect to MongoDB
 const connectDB = async () => {
@@ -42,13 +47,6 @@ const connectDB = async () => {
 
 // Call MongoDB Connection
 connectDB();
-
-
-app.use((req, res, next) => {
-  console.log(`📡 API Request: ${req.method} ${req.url}`);
-  next();
-});
-
 
 // Import authentication routes
 const authRoutes = require("./routes/auth");
