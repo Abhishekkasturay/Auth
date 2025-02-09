@@ -16,6 +16,7 @@ const cors = require("cors");
 app.use(cors({
   origin: 'https://auth-1-emun.onrender.com', // Frontend URL
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ["Content-Type", "Authorization"],
   credentials: true
 }));
 
