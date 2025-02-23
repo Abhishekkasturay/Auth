@@ -66,8 +66,7 @@ exports.loginHandle = async (req, res) => {
   }
 };
 
-// @desc Get User Profile
-// @route GET /auth/profile (Protected)
+
 exports.getProfile = async (req, res) => {
   console.log("Decoded User from JWT:", req.user);
   try {
@@ -90,8 +89,7 @@ exports.getDashboard = async (req, res) => {
   res.json({ msg: "Welcome to your dashboard!", user: req.user });
 };
 
-// @desc Logout User
-// @route GET /auth/logout
+
 exports.logoutHandle = (req, res) => {
   res.clearCookie("token");
   res.json({ msg: "Logout successful" });
