@@ -3,7 +3,7 @@ import { Container, Button, Card } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import Layout from "./layout";
 import axios from "axios";
-import secureIcon from "../assets/secure-icon.png"; // ✅ Ensure correct image path
+import secureIcon from "../assets/secure-icon.png"; // 
 
 function Dashboard() {
   const [user, setUser] = useState({ name: "", email: "" });
@@ -11,7 +11,7 @@ function Dashboard() {
 useEffect(() => {
   axios
     .get("https://auth-sorq.onrender.com/api/auth/profile", {
-      withCredentials: true, // ✅ Ensures cookies are sent automatically
+      withCredentials: true, // 
     })
     .then((response) => {
       console.log("✅ Profile Data:", response.data);
