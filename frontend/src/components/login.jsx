@@ -24,12 +24,12 @@ function Login() {
         { email, password },
         {
           headers: { "Content-Type": "application/json" },
-          withCredentials: true, // ✅ Sends cookies with request
+          withCredentials: true,
         }
       );
 
       if (response.status === 200) {
-        navigate("/dashboard"); // ✅ Redirect after successful login
+        navigate("/dashboard"); 
       } else {
         setMessage(response.data.msg || "Invalid credentials");
       }
