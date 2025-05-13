@@ -4,30 +4,30 @@ const dotenv = require("dotenv");
 const cookieParser = require("cookie-parser");
 const morgan = require("morgan");
 
-// Load environment variables
+
 dotenv.config();
 
-// Initialize Express app
+
 const app = express();
 
-// ✅ CORS Middleware (MUST be before other middlewares)
+
 const cors = require("cors");
 
 app.use(cors({
-  origin: "https://auth-1-emun.onrender.com", // ✅ Frontend URL
-  credentials: true, // ✅ Allows cookies to be sent
+  origin: "https://auth-1-emun.onrender.com", 
+  credentials: true, 
   methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
   allowedHeaders: ["Content-Type", "Authorization"],
 }));
 
-// ✅ Middleware (After CORS)
-app.use(express.json()); // Parses JSON requests
-app.use(cookieParser()); // ✅ Handles cookies
-app.use(morgan("dev")); // Logs API requests
 
-// 🔍 Debugging Middleware (Logs Incoming Cookies)
+app.use(express.json()); 
+app.use(cookieParser()); 
+app.use(morgan("dev")); 
+
+
 app.use((req, res, next) => {
-  console.log("📌 Incoming Cookies:", req.cookies); // ✅ Log received cookies
+  console.log("📌 Incoming Cookies:", req.cookies); 
   next();
 });
 
@@ -37,7 +37,7 @@ const connectDB = async () => {
     await mongoose.connect(process.env.MONGO_URI, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
-      serverSelectionTimeoutMS: 10000, // Timeout after 10s
+      serverSelectionTimeoutMS: 10000, 
     });
     console.log("✅ MongoDB Connected Successfully");
   } catch (error) {
@@ -45,25 +45,25 @@ const connectDB = async () => {
   }
 };
 
-// Call MongoDB Connection
+
 connectDB();
 
-// Import authentication routes
+
 const authRoutes = require("./routes/auth");
 
 // ✅ Routes
 app.use("/api/auth", authRoutes);
 
-// Default Route
+
 app.get("/", (req, res) => res.send("Hello from Express Server!"));
 
-// ✅ Global Error Handler (Handles all errors)
+
 app.use((err, req, res, next) => {
   console.error("❌ Server Error:", err);
   res.status(500).json({ msg: "Internal Server Error", error: err.message });
 });
 
-// ✅ Handle Uncaught Errors (Prevents Server Crash)
+
 process.on("uncaughtException", (err) => {
   console.error("🚨 Uncaught Exception:", err);
 });
