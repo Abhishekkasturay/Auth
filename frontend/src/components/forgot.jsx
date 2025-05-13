@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Form, Button, Card, Container } from "react-bootstrap";
-import emailjs from "emailjs-com"; // ✅ Import EmailJS
+import emailjs from "emailjs-com";
 
 function ForgotPassword() {
   const [email, setEmail] = useState("");
@@ -11,16 +11,16 @@ function ForgotPassword() {
     setMessage("");
 
     const templateParams = {
-      to_email: email, // ✅ Ensure this matches your EmailJS template
+      to_email: email, 
       reset_link: "https://auth-1-emun.onrender.com/auth/reset?email=${email}",
     };
 
     emailjs
       .send(
-        "service_bfq5ubh", // ✅ Your EmailJS Service ID
-        "template_knukl5h", // ✅ Your EmailJS Template ID
+        "service_bfq5ubh", 
+        "template_knukl5h", 
         templateParams,
-        "04wKDri_UyNpvP-Yi" // ✅ Replace with your actual EmailJS Public Key
+        "04wKDri_UyNpvP-Yi" 
       )
       .then(
         (response) => {
