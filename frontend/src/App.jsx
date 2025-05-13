@@ -9,14 +9,12 @@ import Welcome from "./components/welcome";
 import Profile from "./components/profile";
 
 function App() {
-  // State to store user data
 
   return (
     <Router>
       <Routes>
         <Route path="/" element={<Welcome />} />
         <Route path="/dashboard" element={<Dashboard />} />{" "}
-        {/* ✅ Pass user name dynamically */}
         <Route path="/auth/login" element={<Login />} />
         <Route path="/auth/register" element={<Register />} />
         <Route path="/auth/forgot" element={<ForgotPassword />} />
